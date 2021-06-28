@@ -23,16 +23,23 @@ GUI application for examining/injecting spatial media metadata in MP4/MOV files.
 import ntpath
 import os
 import sys
-import tkFileDialog
-import tkMessageBox
+#import tkFileDialog
+from tkinter import filedialog
+from tkinter import messagebox
+#import tkMessageBox
 import traceback
-import ttk
+#import ttk
+from tkinter import ttk
+from tkinter import messagebox
+from tkinter import *
 
+'''
 try:
     from Tkinter import *
 except ImportError:
     print("Tkinter library is not available.")
     exit(0)
+'''
 
 path = os.path.dirname(sys.modules[__name__].__file__)
 path = os.path.join(path, '..')
@@ -54,7 +61,7 @@ class Console(object):
 class Application(Frame):
     def action_open(self):
         """Triggers open file diaglog, reading a new file's metadata."""
-        tmp_in_file = tkFileDialog.askopenfilename(**self.open_options)
+        tmp_in_file = filedialog.askopenfilename(**self.open_options)
         if not tmp_in_file:
             return
         self.in_file = tmp_in_file
@@ -144,7 +151,7 @@ class Application(Frame):
         extension = split_filename[1]
         self.save_options["initialfile"] = (base_filename
                                             + "_injected" + extension)
-        self.save_file = tkFileDialog.asksaveasfilename(**self.save_options)
+        self.save_file = filedialog.asksaveasfilename(**self.save_options)
         if not self.save_file:
             return
 
@@ -304,7 +311,7 @@ class Application(Frame):
 
 def report_callback_exception(self, *args):
     exception = traceback.format_exception(*args)
-    tkMessageBox.showerror("Error", exception)
+    messagebox.showerror("Error", exception)
 
 def main():
     root = Tk()
